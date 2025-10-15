@@ -1,49 +1,53 @@
-import random
+class Employee:
+    raise_amount = 1.04
+    def __init__(self, name, last, salary):
+        self.name = name
+        self.last = last
+        self.salary = salary
+        self.email = self.name + "@" + self.last + ".@company.com"
+
+    def fullname(self):
+        return "{} {}".format(self.name, self.last)
+
+    def apply_raise(self):
+        return self.salary * self.raise_amount
 
 
-def hangman():
-    word = random.choice(['man', "boy", "chair", "dog"])
-    validinputs = "abcdefghijklmnopqrstuvwxyz"
-    turns = 10
-    guessmade = ''
-
-    while len(word) > 0:
-        main = ''
-        missed = 0
-
-        for letter in word:
-            if letter in guessmade:
-                main += letter
-                missed += 1
-            else:
-                main += "_" + ' '
-        if main == word:
-            print(word)
-            print("You win!")
-            break
-        print("Guess the word ", main)
-        guess = input()
-
-        if guess in validinputs:
-            guessmade += guess
+class Manager(Employee):
+    def __init__(self, name, last, salary, employees= None):
+        super().__init__(name, last, salary)
+        if employees is None:
+            self.employees = []
         else:
-            print("Enter a valid character")
-            guess = input()
+            self.employees = employees
 
-        if guess not in word:
-            print(f"You have {turns} tries left")
-            print("----------------------------")
-            turns -= 1
-            if turns == 1:
-                print("last try, think carefully")
-            if turns == 0:
-                print("You loose")
-                print("You let a kind man die")
-                break
+    def add_employee(self, emp):
+        if emp not in self.employees:
+            self.employees.append(emp)
 
+    def remove_employee(self, emp):
+        if emp in self.employees:
+            self.employees.remove(emp)
 
-name = input("Enter your name: ")
-print("Welcome ", name)
-print("Try to guess the right word in less than 10 attempts")
-print("---------------")
-hangman()
+    def show_name(self):
+        for emp in self.employees:
+            print(emp.fullname)
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class Sll:
+    def __init__(self):
+        self.head = None
+
+    def traverse(self):
+        if self.head is None:
+            print("Sll head is null")
+        else:
+            a = self.head
+            while a is not None:
+                print(a.data, end=" ")
+                a = a.next
+
